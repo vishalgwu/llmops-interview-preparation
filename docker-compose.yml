@@ -1,0 +1,176 @@
+# Local LLMOps stack: vLLM + Qdrant + Redis Stack + LangFuse (v3)
+#
+#   cp .env.example .env            # then edit the secrets
+#   docker compose up -d            # GPU machine: everything incl. vLLM
+#   docker compose --profile cpu up -d   # no GPU: Ollama stands in for vLLM (OpenAI-compatible on :11434)
+#
+# Endpoints
+#   vLLM (OpenAI API)  http://localhost:8000/v1
+#   Qdrant             http://localhost:6333/dashboard
+#   Redis Stack        localhost:6379   (RedisInsight UI on http://localhost:8001)
+#   LangFuse           http://localhost:3000
+name: llmops
+
+x-langfuse-env: &langfuse-env
+  DATABASE_URL: postgresql://langfuse:${POSTGRES_PASSWORD:-langfuse}@postgres:5432/langfuse
+  NEXTAUTH_URL: http://localhost:3000
+  NEXTAUTH_SECRET: ${LANGFUSE_NEXTAUTH_SECRET:?set LANGFUSE_NEXTAUTH_SECRET in .env}
+  SALT: ${LANGFUSE_SALT:?set LANGFUSE_SALT in .env}
+  ENCRYPTION_KEY: ${LANGFUSE_ENCRYPTION_KEY:?set LANGFUSE_ENCRYPTION_KEY (64 hex chars) in .env}
+  CLICKHOUSE_URL: http://clickhouse:8123
+  CLICKHOUSE_MIGRATION_URL: clickhouse://clickhouse:9000
+  CLICKHOUSE_USER: clickhouse
+  CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse}
+  CLICKHOUSE_CLUSTER_ENABLED: "false"
+  REDIS_HOST: redis
+  REDIS_PORT: "6379"
+  REDIS_AUTH: ${REDIS_PASSWORD:-redispass}
+  LANGFUSE_S3_EVENT_UPLOAD_BUCKET: langfuse
+  LANGFUSE_S3_EVENT_UPLOAD_REGION: auto
+  LANGFUSE_S3_EVENT_UPLOAD_ENDPOINT: http://minio:9000
+  LANGFUSE_S3_EVENT_UPLOAD_ACCESS_KEY_ID: minio
+  LANGFUSE_S3_EVENT_UPLOAD_SECRET_ACCESS_KEY: ${MINIO_PASSWORD:-miniosecret}
+  LANGFUSE_S3_EVENT_UPLOAD_FORCE_PATH_STYLE: "true"
+  TELEMETRY_ENABLED: "false"
+
+services:
+  # ---------------------------------------------------------------- serving
+  vllm:
+    image: vllm/vllm-openai:v0.10.1
+    runtime: nvidia
+    ipc: host
+    environment:
+      HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
+      VLLM_API_KEY: ${VLLM_API_KEY:-dev-key}
+    command: >
+      --model ${LLM_MODEL:-Qwen/Qwen2.5-1.5B-Instruct}
+      --served-model-name llm-primary
+      --max-model-len 8192
+      --gpu-memory-utilization 0.85
+      --max-num-seqs 64
+      --enable-prefix-caching
+      --enable-chunked-prefill
+      --api-key ${VLLM_API_KEY:-dev-key}
+    volumes: ["hf-cache:/root/.cache/huggingface"]
+    ports: ["8000:8000"]
+    deploy:
+      resources:
+        reservations:
+          devices: [{ driver: nvidia, count: 1, capabilities: [gpu] }]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 15s
+      timeout: 5s
+      retries: 40
+      start_period: 120s
+    restart: unless-stopped
+
+  ollama:                       # CPU/dev fallback; enabled with `--profile cpu`
+    profiles: ["cpu"]
+    image: ollama/ollama:latest
+    ports: ["11434:11434"]
+    volumes: ["ollama:/root/.ollama"]
+
+  # ------------------------------------------------------------- retrieval
+  qdrant:
+    image: qdrant/qdrant:v1.12.4
+    ports: ["6333:6333", "6334:6334"]
+    environment:
+      QDRANT__SERVICE__API_KEY: ${QDRANT_API_KEY:-dev-key}
+    volumes: ["qdrant-data:/qdrant/storage"]
+    ulimits: { nofile: { soft: 65535, hard: 65535 } }
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      interval: 10s
+      retries: 10
+    restart: unless-stopped
+
+  # ----------------------------- semantic cache + LangFuse queue (one Redis)
+  redis:
+    image: redis/redis-stack:latest          # RediSearch vector index for the semantic cache
+    environment:
+      REDIS_ARGS: "--requirepass ${REDIS_PASSWORD:-redispass} --appendonly yes"
+    ports: ["6379:6379", "8001:8001"]
+    volumes: ["redis-data:/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "redis-cli -a ${REDIS_PASSWORD:-redispass} ping | grep PONG"]
+      interval: 10s
+      retries: 10
+    restart: unless-stopped
+
+  # ----------------------------------------------------------- observability
+  langfuse-web:
+    image: langfuse/langfuse:3
+    depends_on:
+      postgres: { condition: service_healthy }
+      clickhouse: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    ports: ["3000:3000"]
+    environment:
+      <<: *langfuse-env
+      LANGFUSE_INIT_ORG_ID: llmops
+      LANGFUSE_INIT_PROJECT_ID: llmops-local
+      LANGFUSE_INIT_PROJECT_PUBLIC_KEY: ${LANGFUSE_PUBLIC_KEY:-pk-lf-local}
+      LANGFUSE_INIT_PROJECT_SECRET_KEY: ${LANGFUSE_SECRET_KEY:-sk-lf-local}
+      LANGFUSE_INIT_USER_EMAIL: ${LANGFUSE_ADMIN_EMAIL:-admin@example.com}
+      LANGFUSE_INIT_USER_PASSWORD: ${LANGFUSE_ADMIN_PASSWORD:?set LANGFUSE_ADMIN_PASSWORD in .env}
+    restart: unless-stopped
+
+  langfuse-worker:
+    image: langfuse/langfuse-worker:3
+    depends_on:
+      postgres: { condition: service_healthy }
+      clickhouse: { condition: service_healthy }
+      redis: { condition: service_healthy }
+      minio: { condition: service_healthy }
+    environment: *langfuse-env
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: langfuse
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-langfuse}
+      POSTGRES_DB: langfuse
+    volumes: ["postgres-data:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U langfuse"]
+      interval: 5s
+      retries: 10
+    restart: unless-stopped
+
+  clickhouse:
+    image: clickhouse/clickhouse-server:24.8
+    environment:
+      CLICKHOUSE_USER: clickhouse
+      CLICKHOUSE_PASSWORD: ${CLICKHOUSE_PASSWORD:-clickhouse}
+    volumes: ["clickhouse-data:/var/lib/clickhouse"]
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:8123/ping || exit 1"]
+      interval: 5s
+      retries: 20
+    restart: unless-stopped
+
+  minio:
+    image: minio/minio
+    entrypoint: sh
+    command: -c 'mkdir -p /data/langfuse && minio server /data --address ":9000" --console-address ":9001"'
+    environment:
+      MINIO_ROOT_USER: minio
+      MINIO_ROOT_PASSWORD: ${MINIO_PASSWORD:-miniosecret}
+    volumes: ["minio-data:/data"]
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      retries: 10
+    restart: unless-stopped
+
+volumes:
+  hf-cache:
+  ollama:
+  qdrant-data:
+  redis-data:
+  postgres-data:
+  clickhouse-data:
+  minio-data:
