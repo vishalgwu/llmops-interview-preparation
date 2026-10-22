@@ -22,7 +22,13 @@ def main() -> None:
         if first and first.group(0) in chapter:
             print(f"already merged {ext.name}")
             continue
-        targets[0].write_text(chapter.rstrip() + "\n" + body, encoding="utf-8", newline="\n")
+        marker = "<!-- deep:end -->"           # chapters with a nav footer: insert new sections before it
+        if marker in chapter:
+            i = chapter.rindex(marker)
+            merged = chapter[:i].rstrip() + "\n" + body.rstrip() + "\n\n" + chapter[i:]
+        else:
+            merged = chapter.rstrip() + "\n" + body
+        targets[0].write_text(merged, encoding="utf-8", newline="\n")
         print(f"merged {ext.name} -> {targets[0].name}")
 
 

@@ -1,11 +1,15 @@
 <div align="center">
 
+<a href="https://llmops-interview-preparation.vercel.app"><img src="docs/screenshots/01-hero.jpg" alt="LLMOps Interview Preparation: streaming-style home page" width="100%"></a>
+
 # LLMOps Interview Preparation
 
-### A zero-to-hero, production-grade LLMOps curriculum — 12 masterclass modules, 90+ staff-level interview scenarios, executable code
+### A zero-to-hero, production-grade LLMOps curriculum — 20 modules, 142 concept episodes, 350 code blocks, staff-level interview scenarios
 
+[![Live site](https://img.shields.io/badge/%E2%96%B6%20Watch%20the%20series-live%20site-E50914?style=for-the-badge&labelColor=141414)](https://llmops-interview-preparation.vercel.app)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
-![Modules](https://img.shields.io/badge/modules-12-blue)
+![Modules](https://img.shields.io/badge/modules-20-blue)
+![Episodes](https://img.shields.io/badge/concept%20episodes-142-E50914)
 ![Level](https://img.shields.io/badge/level-senior%20%2F%20staff-purple)
 ![Python](https://img.shields.io/badge/python-3.11%2B-3776AB?logo=python&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-compose-2496ED?logo=docker&logoColor=white)
@@ -21,6 +25,33 @@
 
 ---
 
+## The streaming-style site
+
+The whole course is also a zero-dependency web app (`site/`, plain HTML/CSS/JS): chapters are **titles**, sections are **episodes**, and revision feels like binge-watching. **[Open the live site](https://llmops-interview-preparation.vercel.app)**.
+
+<table>
+<tr>
+<td width="50%"><img src="docs/screenshots/02-rows-top10.jpg" alt="Rows and Top 10 modules"><br><sub><b>Rows and Top 10</b>: role-based "Top Picks" and the modules interviewers ask about most.</sub></td>
+<td width="50%"><img src="docs/screenshots/03-detail-modal.jpg" alt="Module detail view with episodes"><br><sub><b>Detail view</b>: tools "starring", genres, and an episode list for every section.</sub></td>
+</tr>
+<tr>
+<td width="50%"><img src="docs/screenshots/04-reader-diagram.jpg" alt="Reader rendering the end-to-end architecture diagram"><br><sub><b>Reader</b>: episode sidebar, progress, highlighted code, and live-rendered Mermaid diagrams.</sub></td>
+<td width="50%" align="center"><img src="docs/screenshots/05-mobile.jpg" alt="Mobile layout" width="220"><br><sub><b>Mobile</b>: responsive, no horizontal scrolling.</sub></td>
+</tr>
+</table>
+
+| Feature | What it does |
+|---|---|
+| Interview profiles | "Interview in 72 hours", "Senior/Staff loop", "Platform engineer", "Career switcher" reorder the recommendations |
+| Reader with resume | Remembers where you stopped in each module; a "Continue Reading" row appears |
+| My List and search | Save modules; search titles, tools and all 142 episode titles (`/` focuses search) |
+| Deep links | `#/read/5/5.3` opens Module 05 section 3; every episode has a stable link |
+| Private | Progress lives only in your browser's `localStorage`; no accounts, no analytics |
+
+> The visual style is an homage to streaming-service UIs and is not affiliated with or endorsed by any streaming company.
+
+---
+
 ## What this is
 
 Every module is a self-contained chapter that follows the same five-part structure, so you can study (and revise) predictably:
@@ -30,6 +61,8 @@ Every module is a self-contained chapter that follows the same five-part structu
 3. **Production-ready code** — typed Python, Dockerfiles, Compose, Kubernetes / Helm, vLLM launch scripts.
 4. **Hard-learned production failures** — incident-style case studies with step-by-step root-cause analysis and remediation code.
 5. **Senior/Staff interview scenarios** — each with the *Junior/Mid trap answer* and the *Staff production answer*.
+
+**Modules 13-20 and the extension sections (numbered `N.6` and up in modules 01-12)** use a five-part *concept* format: **Conceptual Deep Dive**, **Cross-Connection Scenarios**, **Production Anti-Patterns**, **Minimal Working Code** (two runnable blocks) and **Interview Angle** (questions with concise model answers that state a trade-off and a measurable check).
 
 All content and code are original, written from first principles. Version pins in the snippets are illustrative — **always check the current release of a library or engine before copying a flag or API**, as vLLM, LangGraph, the MCP SDK, Ragas and similar projects move quickly.
 
@@ -52,7 +85,16 @@ All content and code are original, written from first principles. Version pins i
 | 11 | [Cost, Latency & GPU Optimization](chapters/11_cost_latency_gpu_optimization.md) | Redis Stack, Karpenter, Modal, RunPod, AWS Bedrock | Semantic cache, model cascading, spot management, TP vs PP, serverless break-even, unit economics | "Cut the bill 60%", cache leaks, router quality, spot reclaim |
 | 12 | [Interview Cheatsheet & System Design](chapters/12_llmops_interview_cheatsheet_system_design.md) | All of the above | CRISP-LM design framework, decision trees (RAG vs fine-tune, LoRA vs full FT, engines, stores), Right-vs-Wrong table, 35 rapid-fire Q&As | Enterprise RAG / agent design, capacity planning, behavioural prompts |
 
-**Suggested reading order:** 01 → 05 → 06 → 07 → 03 → 04 → 08 → 09 → 10 → 11 → 02 → 12. (Serving and retrieval first because most interview questions hinge on them; data curation later because it is the most specialised.)
+| 13 | [LLM CI/CD & Release Engineering](chapters/13_llm_cicd_release_engineering.md) | Eval gates, registries, GitOps | Release bundle as one unit, CI cost control, shadow/canary/blue-green, provider upgrades, A/B tests and sequential decisions, kill switches | "How do you ship a prompt change safely?", deprecation playbook |
+| 14 | [Evaluation Operations & the Data Flywheel](chapters/14_evaluation_operations_data_flywheel.md) | Golden sets, judges, Krippendorff alpha | Eval set lifecycle, judge operations, online-offline gap, cluster bootstrap, multiple-comparison control, trace-to-dataset flywheel | "Offline says better, online says worse" |
+| 15 | [Fine-Tuning & Alignment Operations](chapters/15_finetuning_alignment_operations.md) | SFT, DPO, GRPO | When to tune, data and label ops, preference and reward pipelines, adapter lifecycle, regression and safety checks | Fine-tune vs RAG vs prompt, reward hacking |
+| 16 | [Governance, Compliance & Responsible AI](chapters/16_governance_compliance_responsible_ai.md) | NIST AI RMF, EU AI Act, model cards | Risk tiers, control mapping, audit evidence, privacy and retention, responsible-use review | "What evidence would an auditor want?" |
+| 17 | [Platform Engineering, Multi-Tenancy & Incident Response](chapters/17_platform_engineering_multitenancy_incident_response.md) | Gateway, fair queueing, GPU Kubernetes | Tenant isolation and quotas, fair scheduling, cost attribution, runbooks, incident command and postmortems | Noisy neighbour, quota design, LLM incident drill |
+| 18 | [Production Projects & Labs Blueprint](chapters/18_production_projects_labs_blueprint.md) | RAG service, capacity report, durable agent | Six end-to-end builds with acceptance criteria and evidence to show | Portfolio and take-home preparation |
+| 19 | [Learning Roadmap & Interview Study Plan](chapters/19_learning_roadmap_interview_study_plan.md) | Rubrics, spaced repetition, papers | Level rubrics, study cadence, glossary, annotated reading list (titles, authors, years) | Self-assessment |
+| 20 | [Mock Interview & System Design Question Bank](chapters/20_mock_interview_system_design_question_bank.md) | RAG design, voice agent, question bank | Worked system designs, estimation drills, 60-row question bank | Mock loops |
+
+**Suggested reading order:** 01 → 05 → 06 → 07 → 03 → 04 → 08 → 09 → 10 → 11 → 13 → 14 → 02 → 15 → 16 → 17 → 18 → 12 → 19 → 20. (Serving and retrieval first because most interview questions hinge on them; data curation later because it is the most specialised.)
 
 ---
 
@@ -92,6 +134,39 @@ All content and code are original, written from first principles. Version pins i
 | 12 | Cost & GPU economics | Break-even analysis (dedicated vs serverless vs API) for a realistic workload |
 | 13 | Data & synthetic generation | Dedup + quality filter + decontamination pipeline; preference-pair generation with judge hygiene |
 | 14 | Capstone | Three mock Staff design interviews (enterprise RAG, agentic support, multi-tenant platform) with written design docs using the 12 §3.5 template |
+
+---
+
+## Learning paths
+
+```mermaid
+flowchart TD
+  M01[01 Foundations] --> M05[05 Serving]
+  M01 --> M03[03 Prompting]
+  M01 --> M06[06 Retrieval]
+  M06 --> M07[07 RAGOps and Eval]
+  M03 --> M08[08 Guardrails and Security]
+  M05 --> M11[11 Cost and GPU]
+  M07 --> M14[14 Eval Ops]
+  M03 --> M13[13 CI/CD]
+  M07 --> M13
+  M04[04 Quantization and PEFT] --> M15[15 Fine-tuning Ops]
+  M14 --> M15
+  M08 --> M16[16 Governance]
+  M09[09 AgenticOps] --> M17[17 Platform and Incidents]
+  M10[10 Observability] --> M17
+  M13 --> M17
+  M11 --> M17
+  M17 --> M18[18 Projects]
+  M18 --> M12[12 Cheatsheet]
+  M12 --> M19[19 Study Plan]
+  M19 --> M20[20 Mock Interviews]
+  M02[02 Data] --> M04
+  M01 --> M09
+  M01 --> M10
+  classDef core fill:#E50914,stroke:#141414,color:#fff;
+  class M05,M06,M07,M13,M17 core;
+```
 
 ---
 
@@ -312,29 +387,57 @@ volumes:
 
 ---
 
+## Quality and verification
+
+This edition was produced with a **plan, write, audit** loop: a lead agent audited the repo against a total LLMOps concept map, writer agents produced the new material from precise outlines, and a fixer corrected defects found in the original chapters.
+
+| Check | How | Result |
+|---|---|---|
+| Structure | `scripts/audit.py`: every `N.M` section has the five parts and a code block; required concepts present | 0 issues |
+| Python syntax | every ```python block parsed with `ast` | 0 errors |
+| Runtime | stdlib/numpy sections executed in a clean directory (`scripts/check_snippets.py`) | 83 sections ran, 0 failed, 15 skipped (third-party) |
+| Cross-references | `scripts/check_xrefs.py` validates "Module NN section X.Y" and "section N.M" links (checker sensitivity verified with planted errors) | 254 checked, 0 broken |
+| PDFs | one per module from the Markdown source | 20 / 20 |
+
+**Honest limits** (details in [`CROSSCHECK.md`](CROSSCHECK.md)):
+
+- The original-chapter audit sampled heavily rather than reading every line; the issue list is not exhaustive.
+- Third-party-library snippets (vLLM, LangGraph, TRL, MCP SDK and similar) are syntax-checked but not executed, and flags drift between versions.
+- `docker-compose.yml`: the vLLM service now relies on `deploy.devices` for GPU access (the legacy `runtime: nvidia` line was removed). This is untested on a GPU host; revert if your Compose version ignores it. Image tags marked "pin in production" are intentionally left floating for local use.
+- Prices, benchmark ranks, regulation details and spec versions are perishable and are marked "verify against current docs".
+- The audit is structural; it cannot prove an explanation is correct.
+
+---
+
+## Contributing
+
+Corrections, outdated claims and missing edge cases are welcome. Edit the module in `chapters/NN_*.md`, or add a new section as `extensions/NNc.md` and run `python scripts/merge_extensions.py`. Keep the five-part format for numbered sections, then run:
+
+```bash
+pip install -r requirements.txt
+python scripts/audit.py && python scripts/check_xrefs.py && python scripts/check_snippets.py
+python scripts/build_pdfs.py && python scripts/build_site_data.py
+```
+
+---
+
 ## Repository layout
 
 ```
 llmops-interview-preparation/
 ├── README.md
-├── docker-compose.yml
+├── CROSSCHECK.md           # audit report: what changed, what is still missing
+├── docker-compose.yml      # local stack: vLLM, Qdrant, Redis Stack, LangFuse
 ├── .env.example
-├── .gitignore
-├── LICENSE
+├── chapters/               # modules 01-20 (Markdown, source of truth)
+├── extensions/             # expansion sections (merged into chapters)
+├── pdfs/                   # one PDF per module
+├── scripts/                # audit, xref check, snippet runner, PDF + site builders
+├── site/                   # the streaming-style web app (deployed on Vercel)
+├── docs/screenshots/       # images used in this README
 ├── assets/
 │   └── llmops_end_to_end_architecture.svg
-├── 01-llmops-foundations-architecture.md
-├── 02-data-engineering-synthetic-data-curation.md
-├── 03-prompt-engineering-versioning-management.md
-├── 04-model-quantization-compression-peft.md
-├── 05-llm-serving-inference-engines.md
-├── 06-vector-databases-retrieval-ops.md
-├── 07-ragops-evaluation-frameworks.md
-├── 08-guardrails-security-alignment.md
-├── 09-agenticops-orchestration-state.md
-├── 10-monitoring-observability-tracing.md
-├── 11-cost-latency-gpu-optimization.md
-└── 12-llmops-interview-cheatsheet-system-design.md
+└── LICENSE
 ```
 
 ## How to use the code
