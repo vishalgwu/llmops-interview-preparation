@@ -1,12 +1,12 @@
 <div align="center">
 
-<a href="https://llmops-interview-preparation.vercel.app"><img src="docs/screenshots/01-hero.jpg" alt="LLMOps Interview Preparation: streaming-style home page" width="100%"></a>
+<a href="https://llmops-interview-preparation.vercel.app"><img src="docs/screenshots/01-hero.jpg" alt="LLMOps Interview Preparation: storefront-style home page" width="100%"></a>
 
 # LLMOps Interview Preparation
 
 ### A zero-to-hero, production-grade LLMOps curriculum — 20 modules, 142 concept episodes, 350 code blocks, staff-level interview scenarios
 
-[![Live site](https://img.shields.io/badge/%E2%96%B6%20Watch%20the%20series-live%20site-E50914?style=for-the-badge&labelColor=141414)](https://llmops-interview-preparation.vercel.app)
+[![Live site](https://img.shields.io/badge/Open%20the%20site-live%20site-FF9900?style=for-the-badge&labelColor=131921)](https://llmops-interview-preparation.vercel.app)
 [![License: MIT](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 ![Modules](https://img.shields.io/badge/modules-20-blue)
 ![Episodes](https://img.shields.io/badge/concept%20episodes-142-E50914)
@@ -25,17 +25,17 @@
 
 ---
 
-## The streaming-style site
+## The storefront-style site
 
-The whole course is also a zero-dependency web app (`site/`, plain HTML/CSS/JS): chapters are **titles**, sections are **episodes**, and revision feels like binge-watching. **[Open the live site](https://llmops-interview-preparation.vercel.app)**.
+The whole course is also a zero-dependency web app (`site/`, plain HTML/CSS/JS): modules are **catalogue items** on shelves, sections are **episodes**, and revision feels like browsing a store (everything is free). The styling takes cues from a familiar navy-and-orange e-commerce layout: a wide search bar, a category strip, shelf carousels, a "best sellers" Top 10, and a detail page per module. **[Open the live site](https://llmops-interview-preparation.vercel.app)**.
 
 <table>
 <tr>
-<td width="50%"><img src="docs/screenshots/02-rows-top10.jpg" alt="Rows and Top 10 modules"><br><sub><b>Rows and Top 10</b>: role-based "Top Picks" and the modules interviewers ask about most.</sub></td>
-<td width="50%"><img src="docs/screenshots/03-detail-modal.jpg" alt="Module detail view with episodes"><br><sub><b>Detail view</b>: tools "starring", genres, and an episode list for every section.</sub></td>
+<td width="50%"><img src="docs/screenshots/02-rows-top10.jpg" alt="Rows and Top 10 modules"><br><sub><b>Shelves and Top 10</b>: role-based "Top Picks" and a numbered Top 10, with Read now / List buttons on every card.</sub></td>
+<td width="50%"><img src="docs/screenshots/03-detail-modal.jpg" alt="Module detail view with episodes"><br><sub><b>Detail page</b>: tools, genres, and an episode list for every section.</sub></td>
 </tr>
 <tr>
-<td width="50%"><img src="docs/screenshots/04-reader-diagram.jpg" alt="Reader rendering the end-to-end architecture diagram"><br><sub><b>Reader</b>: episode sidebar, progress, highlighted code, and live-rendered Mermaid diagrams.</sub></td>
+<td width="50%"><img src="docs/screenshots/04-reader-diagram.jpg" alt="Reader rendering the end-to-end architecture diagram"><br><sub><b>Reader</b>: light theme, episode sidebar, progress, highlighted code, and live-rendered Mermaid diagrams.</sub></td>
 <td width="50%" align="center"><img src="docs/screenshots/05-mobile.jpg" alt="Mobile layout" width="220"><br><sub><b>Mobile</b>: responsive, no horizontal scrolling.</sub></td>
 </tr>
 </table>
@@ -48,7 +48,7 @@ The whole course is also a zero-dependency web app (`site/`, plain HTML/CSS/JS):
 | Deep links | `#/read/5/5.3` opens Module 05 section 3; every episode has a stable link |
 | Private | Progress lives only in your browser's `localStorage`; no accounts, no analytics |
 
-> The visual style is an homage to streaming-service UIs and is not affiliated with or endorsed by any streaming company.
+> The visual style is an homage to e-commerce storefronts. It uses no copied logos, ratings, reviews or prices, and this project is not affiliated with or endorsed by Amazon.
 
 ---
 
