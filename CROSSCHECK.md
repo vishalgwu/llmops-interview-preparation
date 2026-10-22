@@ -9,7 +9,7 @@ An account of how this edition was audited and expanded, what changed, and what 
 | Structure | `scripts/audit.py`: every numbered `N.M` section has Conceptual Deep Dive, Cross-Connection Scenarios, Production Anti-Patterns, Minimal Working Code and Interview Angle, plus at least one code block; required-concept keywords per module | 0 issues |
 | Python syntax | every ```python block parsed with `ast` | 0 errors |
 | Runtime | stdlib/numpy-only sections executed in a clean directory | 83 sections ran, 0 failed, 15 skipped (need third-party packages) |
-| Cross-references | `scripts/check_xrefs.py` validates "Module NN section X.Y" and "section N.M" references against real headings; sensitivity confirmed by planting broken references | 254 checked, 0 broken |
+| Cross-references | `scripts/check_xrefs.py` validates "Module NN section X.Y" and "section N.M" references against real headings; sensitivity confirmed by planting broken references | 861 checked, 0 broken |
 | PDFs | one per module, Unicode fonts embedded | 20 / 20, no missing glyphs |
 | Site | static build, Mermaid diagrams rendered in the reader | 20 modules, 142 episodes |
 

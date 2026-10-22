@@ -3,6 +3,7 @@
 Only sections whose imports are limited to the standard library (+ numpy) are executed; sections that need
 third-party packages, GPUs, servers or network are skipped (they are still syntax-checked by audit.py).
 """
+import ast
 import re
 import subprocess
 import sys
@@ -29,7 +30,15 @@ def main() -> int:
             fut = [ln for ln in code.split("\n") if ln.startswith("from __future__")]
             if fut:                      # concatenated blocks: future imports must come first
                 code = "\n".join(fut) + "\n" + "\n".join(ln for ln in code.split("\n") if not ln.startswith("from __future__"))
-            mods = set(re.findall(r"^\s*(?:from|import)\s+([A-Za-z_]\w*)", code, flags=re.M))
+            mods = set()
+            try:                         # parse imports properly: handles "import a, b" and imports inside functions
+                for node in ast.walk(ast.parse(code)):
+                    if isinstance(node, ast.Import):
+                        mods |= {a.name.split(".")[0] for a in node.names}
+                    elif isinstance(node, ast.ImportFrom) and node.module and node.level == 0:
+                        mods.add(node.module.split(".")[0])
+            except SyntaxError:
+                mods = set(re.findall(r"^\s*(?:from|import)\s+([A-Za-z_]\w*)", code, flags=re.M))
             local = set(re.findall(r"^\s*(?:def|class)\s+(\w+)", code, flags=re.M))
             if (mods - ALLOWED - local) or any(h in code for h in NETWORK_HINTS):
                 skip += 1

@@ -396,7 +396,7 @@ This edition was produced with a **plan, write, audit** loop: a lead agent audit
 | Structure | `scripts/audit.py`: every `N.M` section has the five parts and a code block; required concepts present | 0 issues |
 | Python syntax | every ```python block parsed with `ast` | 0 errors |
 | Runtime | stdlib/numpy sections executed in a clean directory (`scripts/check_snippets.py`) | 83 sections ran, 0 failed, 15 skipped (third-party) |
-| Cross-references | `scripts/check_xrefs.py` validates "Module NN section X.Y" and "section N.M" links (checker sensitivity verified with planted errors) | 254 checked, 0 broken |
+| Cross-references | `scripts/check_xrefs.py` validates "Module NN section X.Y" and "section N.M" links (checker sensitivity verified with planted errors) | 861 checked, 0 broken |
 | PDFs | one per module from the Markdown source | 20 / 20 |
 
 **Honest limits** (details in [`CROSSCHECK.md`](CROSSCHECK.md)):
