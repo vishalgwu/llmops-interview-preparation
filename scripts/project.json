@@ -1,0 +1,19 @@
+{
+  "title": "LLMOps Interview Preparation",
+  "short": "LLMOps",
+  "expected_chapters": 20,
+  "required_parts": [
+    "Conceptual Deep Dive",
+    "Cross-Connection Scenarios",
+    "Production Anti-Patterns",
+    "Minimal Working Code",
+    "Interview Angle"
+  ],
+  "reference_chapters": [
+    "12_llmops_interview_cheatsheet_system_design",
+    "18_production_projects_labs_blueprint",
+    "19_learning_roadmap_interview_study_plan",
+    "20_mock_interview_system_design_question_bank"
+  ],
+  "pdf_footer": "LLMOps Interview Preparation"
+}

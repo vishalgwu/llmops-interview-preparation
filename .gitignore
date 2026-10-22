@@ -107,3 +107,6 @@ node_modules/
 .terraform/
 *.tfstate
 *.tfstate.backup
+_plan/
+.vercel/
+.env.local

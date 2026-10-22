@@ -1,0 +1,472 @@
+{
+ "config": {
+  "brand": "LLMOPS",
+  "year": "2026",
+  "title": "LLMOps Interview Preparation",
+  "storage": "llmops26",
+  "repo": "https://github.com/vishalgwu/llmops-interview-preparation",
+  "kicker": "INTERVIEW PREP SERIES",
+  "gateTitle": "Who's interviewing?",
+  "gateSub": "Pick your path and we will line up the modules that matter most for your loop.",
+  "top10Title": "Top 10 LLMOps Modules Today",
+  "conceptsTitle": "Every LLMOps concept, one episode at a time",
+  "newChapters": [
+   13,
+   14,
+   15,
+   16,
+   17,
+   18,
+   19,
+   20
+  ],
+  "newLabel": "NEW",
+  "posterTag": "LLMOPS",
+  "episodeBlurb": "Each episode pairs a conceptual deep dive with cross-connection scenarios, production anti-patterns, minimal working code and an interview angle with model answers.",
+  "episodeSub": "Concept episodes",
+  "search": "Search LLMOps: vLLM, RAG, evals, LoRA, agents, CI/CD...",
+  "description": "A senior and staff level LLMOps interview curriculum: 20 modules covering serving, retrieval, evaluation, agents, security, release engineering, governance and system-design practice, with runnable code."
+ },
+ "chapters": {
+  "1": {
+   "title": "LLMOps Foundations & Architecture",
+   "tagline": "Why LLMOps is not MLOps with a bigger model: lifecycle, memory maths and the roofline.",
+   "level": "Beginner",
+   "genres": [
+    "Foundations",
+    "Architecture"
+   ],
+   "cast": [
+    "VRAM maths",
+    "KV cache",
+    "Roofline",
+    "Maturity model"
+   ]
+  },
+  "2": {
+   "title": "Data Engineering & Synthetic Data",
+   "tagline": "Dedup, quality filters, PII, decontamination and preference data, built as real pipelines.",
+   "level": "Intermediate",
+   "genres": [
+    "Data",
+    "Synthetic data"
+   ],
+   "cast": [
+    "MinHash-LSH",
+    "Presidio",
+    "Self-Instruct",
+    "Data contracts"
+   ]
+  },
+  "3": {
+   "title": "Prompting, Versioning & Structured Output",
+   "tagline": "Prompts are code: registries, context engineering, guided decoding and prompt optimisation.",
+   "level": "Intermediate",
+   "genres": [
+    "Prompting",
+    "Contracts"
+   ],
+   "cast": [
+    "Prompt registry",
+    "Pydantic",
+    "Outlines",
+    "DSPy"
+   ]
+  },
+  "4": {
+   "title": "Quantization, Compression & PEFT",
+   "tagline": "AWQ, GPTQ, FP8, GGUF, LoRA and merging, with the regression harness to prove it is safe.",
+   "level": "Advanced",
+   "genres": [
+    "Compression",
+    "Fine-tuning"
+   ],
+   "cast": [
+    "AWQ",
+    "QLoRA",
+    "FP8",
+    "Sparsity"
+   ]
+  },
+  "5": {
+   "title": "LLM Serving & Inference Engines",
+   "tagline": "PagedAttention, continuous batching, speculative decoding and honest benchmarking.",
+   "level": "Advanced",
+   "genres": [
+    "Serving",
+    "Performance"
+   ],
+   "cast": [
+    "vLLM",
+    "TensorRT-LLM",
+    "Prefix cache",
+    "Goodput"
+   ]
+  },
+  "6": {
+   "title": "Vector Databases & Retrieval Ops",
+   "tagline": "HNSW, hybrid search, reranking, ACLs and graph retrieval at production scale.",
+   "level": "Intermediate",
+   "genres": [
+    "Retrieval",
+    "Search"
+   ],
+   "cast": [
+    "Qdrant",
+    "Milvus",
+    "RRF",
+    "GraphRAG"
+   ]
+  },
+  "7": {
+   "title": "RAGOps & Evaluation Frameworks",
+   "tagline": "The RAG triad, judge calibration, paired statistics and error analysis.",
+   "level": "Advanced",
+   "genres": [
+    "Evaluation",
+    "Statistics"
+   ],
+   "cast": [
+    "Ragas",
+    "Cohen kappa",
+    "Bootstrap",
+    "Bradley-Terry"
+   ]
+  },
+  "8": {
+   "title": "Guardrails, Security & Alignment",
+   "tagline": "Injection, exfiltration, sandboxing, privacy engineering and automated red teaming.",
+   "level": "Advanced",
+   "genres": [
+    "Security",
+    "Safety"
+   ],
+   "cast": [
+    "OWASP LLM",
+    "Llama Guard",
+    "gVisor",
+    "Red teaming"
+   ]
+  },
+  "9": {
+   "title": "AgenticOps: Orchestration, State & MCP",
+   "tagline": "Durable agents, HITL, idempotency, MCP, A2A and trajectory evaluation.",
+   "level": "Advanced",
+   "genres": [
+    "Agents",
+    "Orchestration"
+   ],
+   "cast": [
+    "LangGraph",
+    "MCP",
+    "A2A",
+    "pass^k"
+   ]
+  },
+  "10": {
+   "title": "Monitoring, Observability & Tracing",
+   "tagline": "TTFT, SLOs, burn rates, OpenTelemetry GenAI traces and quality alerting.",
+   "level": "Intermediate",
+   "genres": [
+    "Observability",
+    "SRE"
+   ],
+   "cast": [
+    "OpenTelemetry",
+    "LangFuse",
+    "Prometheus",
+    "CUSUM"
+   ]
+  },
+  "11": {
+   "title": "Cost, Latency & GPU Optimization",
+   "tagline": "Caches, cascades, spot and serverless economics, GPU procurement and LLM FinOps.",
+   "level": "Advanced",
+   "genres": [
+    "Cost",
+    "GPU economics"
+   ],
+   "cast": [
+    "Semantic cache",
+    "Karpenter",
+    "MIG",
+    "FinOps"
+   ]
+  },
+  "12": {
+   "title": "Interview Cheatsheet & System Design",
+   "tagline": "CRISP-LM, decision trees, whiteboard numbers and rapid-fire answers.",
+   "level": "All levels",
+   "genres": [
+    "Interview",
+    "Reference"
+   ],
+   "cast": [
+    "CRISP-LM",
+    "Capacity plans",
+    "Right vs Wrong",
+    "ADRs"
+   ]
+  },
+  "13": {
+   "title": "LLM CI/CD & Release Engineering",
+   "tagline": "Bundles, eval gates, canaries, A/B tests and rollbacks for prompts, models and indexes.",
+   "level": "Advanced",
+   "genres": [
+    "Release",
+    "DevOps"
+   ],
+   "cast": [
+    "Eval gates",
+    "Canary",
+    "Shadow traffic",
+    "Kill switches"
+   ]
+  },
+  "14": {
+   "title": "Evaluation Operations & the Data Flywheel",
+   "tagline": "Golden sets, judge operations, annotation, feedback loops and metric governance.",
+   "level": "Advanced",
+   "genres": [
+    "Evaluation",
+    "Operations"
+   ],
+   "cast": [
+    "Golden sets",
+    "Krippendorff alpha",
+    "Holm/BH",
+    "Flywheel"
+   ]
+  },
+  "15": {
+   "title": "Fine-Tuning & Alignment Operations",
+   "tagline": "SFT runs, distributed training, DPO, GRPO, distillation and the model registry.",
+   "level": "Advanced",
+   "genres": [
+    "Training",
+    "Alignment"
+   ],
+   "cast": [
+    "SFT",
+    "DPO",
+    "GRPO",
+    "ZeRO/FSDP"
+   ]
+  },
+  "16": {
+   "title": "Governance, Compliance & Responsible AI",
+   "tagline": "Risk tiering, EU AI Act, NIST AI RMF, ISO 42001, model cards and audit trails.",
+   "level": "Intermediate",
+   "genres": [
+    "Governance",
+    "Compliance"
+   ],
+   "cast": [
+    "EU AI Act",
+    "NIST AI RMF",
+    "Model cards",
+    "AI-BOM"
+   ]
+  },
+  "17": {
+   "title": "Platform Engineering, Multi-Tenancy & Incident Response",
+   "tagline": "Paved roads, tenant isolation, gateways, GPU Kubernetes, reliability and postmortems.",
+   "level": "Advanced",
+   "genres": [
+    "Platform",
+    "Reliability"
+   ],
+   "cast": [
+    "Gateway",
+    "Fair queueing",
+    "GPU K8s",
+    "Postmortems"
+   ]
+  },
+  "18": {
+   "title": "Production Projects & Labs Blueprint",
+   "tagline": "Six portfolio-grade builds with acceptance criteria, from RAG to a multi-tenant gateway.",
+   "level": "Intermediate",
+   "genres": [
+    "Projects",
+    "Labs"
+   ],
+   "cast": [
+    "RAG service",
+    "Capacity report",
+    "Durable agent",
+    "Capstone"
+   ]
+  },
+  "19": {
+   "title": "Learning Roadmap & Interview Study Plan",
+   "tagline": "Skill map, 72-hour to 12-week plans, rubrics, reading list and behavioural stories.",
+   "level": "All levels",
+   "genres": [
+    "Study plan",
+    "Career"
+   ],
+   "cast": [
+    "Rubrics",
+    "Spaced repetition",
+    "Papers",
+    "STAR"
+   ]
+  },
+  "20": {
+   "title": "Mock Interview & System Design Question Bank",
+   "tagline": "Worked designs, 60 deep-dive questions and symptom-led debugging drills.",
+   "level": "All levels",
+   "genres": [
+    "Interview",
+    "Practice"
+   ],
+   "cast": [
+    "RAG design",
+    "Voice agent",
+    "Question bank",
+    "Debug drills"
+   ]
+  }
+ },
+ "rows": [
+  {
+   "id": "start",
+   "title": "Start Here: Map, Plan and Cheatsheet",
+   "chapters": [
+    1,
+    19,
+    12,
+    20
+   ]
+  },
+  {
+   "id": "models",
+   "title": "Data, Prompts and Models",
+   "chapters": [
+    2,
+    3,
+    4,
+    15
+   ]
+  },
+  {
+   "id": "serve",
+   "title": "Serve, Retrieve and Optimise Cost",
+   "chapters": [
+    5,
+    6,
+    11
+   ]
+  },
+  {
+   "id": "measure",
+   "title": "Measure and Improve",
+   "chapters": [
+    7,
+    14,
+    10
+   ]
+  },
+  {
+   "id": "ship",
+   "title": "Ship Safely",
+   "chapters": [
+    13,
+    8,
+    16,
+    9
+   ]
+  },
+  {
+   "id": "run",
+   "title": "Run the Platform and Build Proof",
+   "chapters": [
+    17,
+    18
+   ]
+  }
+ ],
+ "top10": [
+  5,
+  7,
+  9,
+  6,
+  8,
+  11,
+  10,
+  13,
+  14,
+  20
+ ],
+ "featured": [
+  12,
+  5,
+  20
+ ],
+ "profiles": [
+  {
+   "id": "crash",
+   "name": "Interview in 72 hours",
+   "role": "Crash-course candidate",
+   "initial": "72",
+   "color": "#E50914",
+   "rec": [
+    1,
+    5,
+    6,
+    7,
+    12,
+    20
+   ]
+  },
+  {
+   "id": "staff",
+   "name": "Senior/Staff loop",
+   "role": "Senior or Staff candidate",
+   "initial": "S",
+   "color": "#B20710",
+   "rec": [
+    5,
+    10,
+    11,
+    13,
+    14,
+    16,
+    17,
+    20
+   ]
+  },
+  {
+   "id": "platform",
+   "name": "Platform engineer",
+   "role": "ML Platform / SRE",
+   "initial": "P",
+   "color": "#831010",
+   "rec": [
+    5,
+    11,
+    13,
+    15,
+    17,
+    10
+   ]
+  },
+  {
+   "id": "switch",
+   "name": "Career switcher",
+   "role": "Moving into LLMOps",
+   "initial": "C",
+   "color": "#5b5b5b",
+   "rec": [
+    1,
+    2,
+    3,
+    4,
+    18,
+    19,
+    12
+   ]
+  }
+ ]
+}

@@ -36,8 +36,7 @@ x-langfuse-env: &langfuse-env
 services:
   # ---------------------------------------------------------------- serving
   vllm:
-    image: vllm/vllm-openai:v0.10.1
-    runtime: nvidia
+    image: vllm/vllm-openai:v0.10.1   # pinned example: check the current release and test before bumping
     ipc: host
     environment:
       HUGGING_FACE_HUB_TOKEN: ${HF_TOKEN:-}
@@ -67,7 +66,7 @@ services:
 
   ollama:                       # CPU/dev fallback; enabled with `--profile cpu`
     profiles: ["cpu"]
-    image: ollama/ollama:latest
+    image: ollama/ollama:latest   # dev convenience only: pin a tested tag/digest before sharing or production
     ports: ["11434:11434"]
     volumes: ["ollama:/root/.ollama"]
 
@@ -87,7 +86,7 @@ services:
 
   # ----------------------------- semantic cache + LangFuse queue (one Redis)
   redis:
-    image: redis/redis-stack:latest          # RediSearch vector index for the semantic cache
+    image: redis/redis-stack:latest          # RediSearch vector index for the semantic cache; dev convenience only, pin a tested tag/digest in production
     environment:
       REDIS_ARGS: "--requirepass ${REDIS_PASSWORD:-redispass} --appendonly yes"
     ports: ["6379:6379", "8001:8001"]
@@ -100,7 +99,7 @@ services:
 
   # ----------------------------------------------------------- observability
   langfuse-web:
-    image: langfuse/langfuse:3
+    image: langfuse/langfuse:3   # floating major tag: pin a tested minor/digest in production
     depends_on:
       postgres: { condition: service_healthy }
       clickhouse: { condition: service_healthy }
@@ -118,7 +117,7 @@ services:
     restart: unless-stopped
 
   langfuse-worker:
-    image: langfuse/langfuse-worker:3
+    image: langfuse/langfuse-worker:3   # keep in step with the web image; pin a tested tag/digest in production
     depends_on:
       postgres: { condition: service_healthy }
       clickhouse: { condition: service_healthy }
@@ -153,7 +152,7 @@ services:
     restart: unless-stopped
 
   minio:
-    image: minio/minio
+    image: minio/minio   # untagged: pin a tested release tag in production
     entrypoint: sh
     command: -c 'mkdir -p /data/langfuse && minio server /data --address ":9000" --console-address ":9001"'
     environment:
